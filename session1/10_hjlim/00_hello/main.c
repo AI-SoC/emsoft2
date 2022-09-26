@@ -5,6 +5,6 @@ extern int increment(int i);
 
 int main() {
     int i = 10;
-    printf("Hello, world! Hyeon Jun %d\n", increment(i));
+    printf("Hello, world! Lim Hyeon Jun %d\n", increment(i));
     return 0;
 }
