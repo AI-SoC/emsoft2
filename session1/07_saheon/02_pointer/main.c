@@ -8,7 +8,6 @@ int main() {
     int b = 0x12345678;
     printf ("a is %d at 0x%p\n", a, &a);
     printf ("b is 0x%8x at 0x%p\n", b, &b);
-
     int* ap = &a;
     *ap = 200;
     printf ("a is %d at 0x%p\n", *ap, &a);
