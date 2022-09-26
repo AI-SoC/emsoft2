@@ -4,8 +4,7 @@
 extern int increment(int i);
 
 int main() {
-    int i=10;
-    printf("Hello, world! daeki hong   %d\n", increment(i));
+    int i = 10;
+    printf("Hello, world! Lim Hyeon Jun %d\n", increment(i));
     return 0;
 }
-
