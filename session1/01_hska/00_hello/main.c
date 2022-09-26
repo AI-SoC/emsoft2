@@ -5,9 +5,7 @@ extern int increment(int i);
 
 int main() {
     int i=10;
-    printf("Hello, world! heejun %d\n", increment(i));
+    printf("Hello, world! HANSEON %d\n", increment(i));
     return 0;
 }
 
-// Test 
-// Test
