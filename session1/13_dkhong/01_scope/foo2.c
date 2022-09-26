@@ -10,6 +10,7 @@ int break1(int a) {
     else
         printf("mode2: ");
     
+    
     try++;
     printf("breaking %d (Ver 1.2) %d times\n", a, try);
     printf("flag %d\n", flag);

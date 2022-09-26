@@ -16,6 +16,7 @@ foo.o: foo.C
 foo2.o: foo2.C
 	gcc -c foo2.c
 
+
 # linking
 all: main.o foo2.o
 	gcc -o main main.o foo2.o

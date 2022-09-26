@@ -6,6 +6,7 @@ int status;
 static int flag;
 const int k = 123;
 
+
 int main(){
     printf("hello world %d\n", ID);
     status = 120;
