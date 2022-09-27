@@ -75,5 +75,9 @@ int main(void) {
     printf("EN is %d\n", p0.R.EN);
     printf("EOC is %d\n", p0.R.EOC);
 
+    p0.U &= ~(0x0F);
+
+    p0.U |= 0x03;
+
     return 0;
 }
