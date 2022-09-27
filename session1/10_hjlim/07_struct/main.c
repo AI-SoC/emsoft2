@@ -2,6 +2,17 @@
 #include <stdint.h>
 #include <stdio.h>
 
+typedef struct _bits8 {
+    uint8_t b0 : 1;
+    uint8_t b1 : 1;
+    uint8_t b2 : 1;
+    uint8_t b3 : 1;
+    uint8_t b4 : 1;
+    uint8_t b5 : 1;
+    uint8_t b6 : 1;
+    uint8_t b7 : 1;
+} bits8;
+
 typedef struct _ADC_CONFIG {
     uint8_t CNFG1;
     uint8_t CNFG2;
@@ -11,6 +22,7 @@ typedef struct _ADC_CONFIG {
 typedef union _flag_16bits {
     ADC_CONFIG adc;
     uint8_t bytes[4];
+    bits8 regs[4];
 } flag_32bits;
 
 void mem_inspection(uint8_t *p, int N) {
@@ -42,6 +54,13 @@ int main(void) {
            &flag.adc.CNFG1);
     printf("flag.adc.CFNG2 0x%02X is allocated at 0x%p \n", flag.adc.CNFG2,
            &flag.adc.CNFG2);
+
+    bits8 bit8;
+    bit8.b2 = 1;
+    printf("%d \n", bit8);
+
+    flag.regs[0].b0 = 1;
+    flag.regs[0].b4 = 1;
 
     return 0;
 }
