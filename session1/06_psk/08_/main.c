@@ -7,21 +7,9 @@ typedef struct {
     unsigned short MODE;
 } ADC_CONFIG;
 
-typedef struct {
-    unsigned char b0 : 1;
-    unsigned char b1 : 1;
-    unsigned char b2 : 1;
-    unsigned char b3 : 1;
-    unsigned char b4 : 1;
-    unsigned char b5 : 1;
-    unsigned char b6 : 1;
-    unsigned char b7 : 1;
-} bits8;
-
 typedef union {
     ADC_CONFIG adc;
     unsigned char bytes[4];
-    bits8 regs[4];
 } flag_32bits;
 
 void mem_inspection(unsigned char* p, int N){
@@ -54,13 +42,6 @@ int main() {
 
     flag.bytes[1] = 0x5A;
     printf("CNFG2 is 0x%02X\n", flag.adc.CNFG2);
-
-    printf("CNFG1.b0 is %d\n", flag.regs[0].b0);
-
-    flag.regs[0].b1 = 1;
-    flag.regs[0].b4 = 1;
-
-    printf("CNFG1 is %d\n", flag.adc.CNFG1);
 
     return 0;
 }
