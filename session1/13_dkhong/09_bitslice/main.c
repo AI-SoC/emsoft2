@@ -75,6 +75,9 @@ int main() {
         printf("ADC is enabled\n");
     else
         printf("ADC is disabled\n");
+
+    p0.U &= ~(0x0F);
+    p0.U |=   0x03;
  
     return 0;
 }
