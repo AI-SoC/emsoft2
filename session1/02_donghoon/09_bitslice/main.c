@@ -14,10 +14,22 @@ typedef struct _bits8 {
     unsigned char b7 : 1;
 }bits8;
 
-union PORT0 {
-    unsigned char   U;
-    bits8  B;
-};
+typedef struct _adc_reg {
+    unsigned char MODE   : 4;
+    unsigned char EN     : 1;
+    unsigned char _NA    : 2;
+    unsigned char EOC    : 1;
+}adc_reg;
+// 이렇게 되면 아래처럼 8bit가 설정됨
+// _   _ _ _  _ _ _ _
+// EOC _ _ EN MODE
+
+
+typedef union _PORT0 {
+    unsigned char   U;  // writing
+    bits8           B;  // Access bit Slice
+    adc_reg         R;  // Acces Reg Field
+} PORT0;
 
 int main(){
     printf("Running ... \n");
@@ -55,6 +67,14 @@ int main(){
         printf("ADC is ready \n");
     }
 
+    //--------------------------------------------------
+    PORT0 pp0;
+    pp0.U = 0x93;
+    printf("Mode is %d \n", pp0.R.MODE);
+    if(pp0.R.EN)
+        printf("ADC is Enabled \n");
+    else
+        printf("ADC is Disabled \n");
 
     return 0;
 }
