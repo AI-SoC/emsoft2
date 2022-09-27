@@ -68,5 +68,8 @@ int main() {
     else
         printf("ADC is disabled\n");
 
+    P0.U &= ~(0x0f);
+    P0.U |= 0x03;
+
     return 0;
 }
