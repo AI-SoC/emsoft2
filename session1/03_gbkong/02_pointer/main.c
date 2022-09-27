@@ -16,19 +16,17 @@ int main() {
     int* bp = &b;  
     printf("b is 0x%8X at 0x%p\n", *bp, &b);
 
-    /*
-    **little endian : 0x78 0x56 0x34 0x12
-    **big endian : 0x12 0x34 0x56 0x78
-    */
-
-    /* read by 1byte */
+    //little endian : 0x78 0x56 0x34 0x12
+    //big endian : 0x12 0x34 0x56 0x78
+    
+    //read by 1byte
     unsigned char* mbp = (unsigned char*)bp;
     printf("@%p | %2X\n", (mbp+0), *(mbp+0));
     printf("@%p | %2X\n", (mbp+1), *(mbp+1));
     printf("@%p | %2X\n", (mbp+2), *(mbp+2));
     printf("@%p | %2X\n", (mbp+3), *(mbp+3));
 
-    /* change 0x56 -> 0x88 */
+    //change 0x56 -> 0x88
     *(mbp+1) = 0x88;
     printf("b is 0x%8X at 0x%p\n", *bp, &b);
 
