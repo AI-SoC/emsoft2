@@ -76,5 +76,12 @@ int main(){
     else
         printf("ADC is Disabled \n");
 
+
+    // 특정 값을 바꾸고싶다면
+    // 0으로 초기화해준다음에 OR을 사용해야한다.
+    pp0.U &= ~(0x0F);
+    pp0.U |= 0x03;
+
+
     return 0;
 }
