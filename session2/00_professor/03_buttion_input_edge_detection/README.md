@@ -1,0 +1,1 @@
+Software-mode edge detection
