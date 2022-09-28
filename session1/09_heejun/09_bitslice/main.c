@@ -1,64 +1,73 @@
 #include <stdio.h>
-
-void mem_inspection(unsigned char* p, int N) {
-    for(int i=0; i<N; i++)
-        printf("mem[%d] is 0x%2X at 0x%p\n", i, *(p+i), p+i);
-}
-
-//#define ALINGED
-#ifdef ALINGED
-struct foo{
-    int a
-    short b;
-    char c;
-    int d;
-    char e;
-    char f;
-    char g;
-    short h;
-
+#define ADC_EN_IDX 4
+#define ADC_EOC 7
+struct bits8{
+    unsigned char b0 : 1;
+    unsigned char b1 : 1;
+    unsigned char b2 : 1;
+    unsigned char b3 : 1;
+    unsigned char b4 : 1;
+    unsigned char b5 : 1;
+    unsigned char b6 : 1;
+    unsigned char b7 : 1;
 };
-#else
-struct foo{
-    int a
-    short b;
-    short h;
-    
-    int d;
-    char c;
-    char e;
-    char f;
-    char g;
-}
-#endif
-    
+struct adc_reg{
+    unsigned char MODE  : 4;
+    unsigned char EN    : 1;
+    unsigned char _NA   : 2;
+    unsigned char EOC   : 1;
+};
 
+typedef union {
+    unsigned char U; // Writing
+    struct bits8 B; // Access bit slice
+    struct adc_reg R; // Access Ref field
+}PORT0;
 
-int main () {
+int main() {
     printf("Running...\n");
-}
-#ifdef ALINGED
-    struct foo f1 = {
-        0x12345678,
-        0xFBCD,
-        0xEE,
-        0x12345678,
-        0xAB,
-        0xCC,
-        0xEE,
-        0xDDFF,
-};
-#else
- struct foo f1 = {
-        0x12345678,
-        0xFBCD,
-        0xDDFF,
-        0x12345678,
-        0xEE,
-        0x12345678,
-        0xAB,
-        0xCC,
-        0xEE,
 
- };
-#endif
+    unsigned char p0 = 0x95;
+    // Disable ADC
+    p0 &= ~(1<<ADC_EN_IDX);
+
+    printf("p0: 0x%02X\n", p0);
+    if(p0 &(1<<ADC_EN_IDX))
+        printf("ADC is Enabled\n");
+    else
+        printf("ADC is Disabled\n");
+
+    // Enable ADC
+    p0 |= (1<<ADC_EN_IDX);
+
+    printf("p0: 0x%02X\n", p0);
+    if(p0 & (1<<ADC_EN_IDX))
+        printf("ADC is Enabled\n");
+    else
+        printf("ADC is Disabled\n");
+
+    
+    // Check EOC
+    if((p0 & (1<<ADC_EOC)) == 0)
+        printf("ADC is not ready\n");
+    else
+        printf("ADC is ready\n");
+
+    
+    printf("p0: 0x%02X\n", p0);
+
+
+    PORT0 P0;
+    P0.U = 0x93;
+    printf("Mode is %d\n", P0.R.MODE);
+
+    P0.R.EN = 0;
+    
+    if(P0.R.EN)
+        printf("ADC is enabled\n");
+    else
+        printf("ADC is disabled\n");
+
+    p0.U &= ~(0x0F);
+    P0.U |=   0x03;
+}
