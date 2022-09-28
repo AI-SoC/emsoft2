@@ -1,0 +1,1 @@
+Emergency detection (load)
