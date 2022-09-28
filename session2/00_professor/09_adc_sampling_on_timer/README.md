@@ -1,0 +1,1 @@
+Sampling Periodically using ADC
